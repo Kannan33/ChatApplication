@@ -1,0 +1,5 @@
+<%= form_with model: [current_user,@conversation_sender, @message], method: :post, class: "validate" do |f| %>
+  <%= f.text_area :content, placeholder: 'Enter your message', class: 'form-control mt-2', required: true %>
+  <%= f.hidden_field :conversation_id, value: @conversation_sender.id %>
+  <%= f.submit "send", class: 'btn btn-primary mt-2' %>
+<% end %>

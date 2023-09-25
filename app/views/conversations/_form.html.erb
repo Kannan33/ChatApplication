@@ -1,0 +1,7 @@
+<%= form_with(model: [current_user,Conversation.new], method: :post, class: "d-flex" ) do |form| %>
+  <%= form.hidden_field :user_id, value: current_user.id %>
+  <%= form.hidden_field :receiver, value: user.id %>
+
+  <%= form.submit "Chat", data: { confirm: 'Would you like to make conversation' }, class: "btn btn-sm btn-outline-primary" %>
+
+<% end %>

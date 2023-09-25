@@ -1,0 +1,46 @@
+<div class="container d-flex justify-content-center m-2">
+  <div class="col-9">
+    <table class="table table-striped table-bordered">
+      <thead>
+      <tr>
+        <th scope="col">Name</th>
+        <th scope="col">Email</th>
+        <th scope="col">Chat</th>
+        <Th scope="col">Remove user</Th>
+      </tr>
+      </thead>
+      <tbody>
+      <% @conversations.each do |conversation| %>
+        <tr>
+          <td><%= conversation.received_user.first_name + " " + conversation.received_user.last_name %></td>
+          <td><%= conversation.received_user.email %></td>
+          <td class="d-flex">
+            <%= link_to "Chat", user_conversation_path(current_user.id, conversation.id), class: "btn btn-sm btn-outline-primary" %>
+            <% if conversation.unread_messages_count != 0 %>
+              <span class="rounded-pill bg-warning p-1 ms-auto" style="font-size: 14px"><%= conversation.unread_messages_count %></span>
+            <% end %>
+          </td>
+          <td><%= button_to "Destroy",user_conversation_path(current_user.id, conversation.id), method: :delete, data: {turbo: false ,confirm: 'Are you sure?' }, class: "btn btn-sm btn-outline-danger" %></td>
+        </tr>
+      <% end %>
+      <tr>
+        <td colspan="4">
+          No conversation made this users
+        </td>
+      </tr>
+      <% @users.each do |user| %>
+        <tr>
+          <td><%= user.first_name + " " + user.last_name %></td>
+          <td><%= user.email %></td>
+          <td colspan="2">
+            <div class="d-flex justify-content-evenly">
+              <span class="ms-1">Make a new Conversation</span>
+              <%= render 'conversations/form', user: user %>
+            </div>
+          </td>
+         </tr>
+      <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>

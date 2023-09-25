@@ -1,0 +1,44 @@
+<div class="container mt-3">
+  <div class="p-0 m-0 d-flex" style="height: 10vh;background-color: darkseagreen;">
+    <div class="border-2 col-1" style="border-color: white; background-color: mediumblue;">
+      <% if @receiver.avatar.attached? %>
+        <%= image_tag @receiver.avatar, class: 'h-100 w-100' %>
+      <% end %>
+    </div>
+    <div>
+      <%= @receiver.first_name + " " + @receiver.last_name %>
+
+      <p>last seen at: <%= time_ago_in_words(@receiver.updated_at) %></p>
+    </div>
+  </div>
+  <div class="container overflow-y-auto m-0 p-0" style="background-color: wheat; height: 40vh;">
+    <% @messages&.each do |message| %>
+      <div class="mb-2 col-8 <%= message.conversation.user_id == current_user.id ? 'offset-4' : '' %>" style="background-color: cornflowerblue" >
+        <p class="ms-2 mb-0"><%= message.content %></p>
+        <span class="text-muted message-date mt-0">send at <%= message.created_at.strftime('%H-%m') %></span>
+      </div>
+    <% end %>
+  </div>
+  <div>
+    <%= render 'messages/form'%>
+  </div>
+</div>
+<div data-controller="conversations"></div>
+
+<script>
+
+  <% if @conversation_sender.unread_messages_count != 0 %>
+    <!-- for read status update -->
+    $(document).on("turbo:load", function() {
+        $.ajax({
+          url: "<%= unread_messages_reset_user_conversation_path(current_user.id, @conversation_sender.id) %>",
+            ContentType: 'application/js',
+            headers: {
+              'X-CSRF-Token': "<%= form_authenticity_token %>"
+            },
+            method: 'POST'
+        })
+    })
+  <% end %>
+</script>
+
