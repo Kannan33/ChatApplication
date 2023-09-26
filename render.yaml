@@ -1,18 +1,18 @@
 databases:
-  - name: mysite
-    databaseName: mysite
-    user: mysite
+  - name: chatApp
+    databaseName: chat_6k1y
+    user: chat_6k1y_user
 
 services:
   - type: web
-    name: mysite
+    name: sweetchats
     runtime: ruby
     buildCommand: "./bin/render-build.sh"
     startCommand: "bundle exec puma -C config/puma.rb"
     envVars:
       - key: DATABASE_URL
         fromDatabase:
-          name: mysite
+          name: chatApp
           property: connectionString
       - key: RAILS_MASTER_KEY
         sync: false
