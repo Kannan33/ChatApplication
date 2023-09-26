@@ -2,7 +2,10 @@ class Message < ApplicationRecord
 
   # associations for user
   belongs_to :conversation
+  # validations for user
+  validates :content, presence: true, length: { maximum: 255 }
 
+  # associations for user
   scope :conversation_messages,->(user_id, receiver_id) {
     includes(:conversation).references(:conversation_id).where(conversation_id: [user_id, receiver_id]).order(:created_at)
   }

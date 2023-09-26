@@ -1,5 +1,5 @@
-<%= form_with model: [current_user,@conversation_sender, @message], method: :post, class: "validate" do |f| %>
-  <%= f.text_area :content, placeholder: 'Enter your message', class: 'form-control mt-2', required: true %>
+<%= form_with model: [current_user,@conversation_sender, @message], method: :post, class: "validate d-flex justify-content-evenly align-items-center" do |f| %>
+  <%= f.text_field :content, placeholder: 'Enter your message', class: 'form-control mt-2 w-85 rounded-2 h-75', style: 'border-decoration: none;', required: true %>
   <%= f.hidden_field :conversation_id, value: @conversation_sender.id %>
-  <%= f.submit "send", class: 'btn btn-primary mt-2' %>
+  <%= f.submit "Send", class: 'btn btn-primary mt-2 w-10 rounded-2 h-75'%>
 <% end %>

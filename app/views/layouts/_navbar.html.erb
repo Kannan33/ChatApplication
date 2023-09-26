@@ -1,4 +1,4 @@
-<nav class="navbar sticky-top navbar-expand-lg bg-light">
+<nav class="navbar sticky-top navbar-expand-lg bg-light mb-0">
   <div class="container-fluid">
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
@@ -47,10 +47,10 @@
 </nav>
 <!-- Search Navbar -->
 <% if user_signed_in? %>
-  <nav class="navbar bg-body-tertiary">
-    <div class="container-fluid">
-      <%= form_with(model: nil, url: profile_user_path(current_user), method: :get,local: false ,data: { turbo: false  }, class: "d-flex") do |f|%>
-        <%= f.text_field :email, class: "form-control me-2", placeholder: "Search", type: "search", required: true %>
+  <nav class="navbar bg-body-tertiary mt-0">
+    <div class="container-fluid d-flex justify-content-center">
+      <%= form_with(model: nil, url: profile_user_path(current_user), method: :get,local: false ,data: { turbo: false  }, class: "d-flex w-50") do |f|%>
+        <%= f.text_field :email, class: "form-control me-2", placeholder: "Search", type: "search", required: true, style: "width: 100%;" %>
         <%= f.submit "Search", class: "btn btn-outline-success" %>
       <% end %>
     </div>

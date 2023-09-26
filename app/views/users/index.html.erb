@@ -14,10 +14,10 @@
         <tr>
           <td><%= conversation.received_user.first_name + " " + conversation.received_user.last_name %></td>
           <td><%= conversation.received_user.email %></td>
-          <td class="d-flex">
+          <td class="d-flex justify-content-center">
             <%= link_to "Chat", user_conversation_path(current_user.id, conversation.id), class: "btn btn-sm btn-outline-primary" %>
             <% if conversation.unread_messages_count != 0 %>
-              <span class="rounded-pill bg-warning p-1 ms-auto" style="font-size: 14px"><%= conversation.unread_messages_count %></span>
+              <span class="badge bg-info ms-1" style="font-size: 14px;"><%= conversation.unread_messages_count %></span>
             <% end %>
           </td>
           <td><%= button_to "Destroy",user_conversation_path(current_user.id, conversation.id), method: :delete, data: {turbo: false ,confirm: 'Are you sure?' }, class: "btn btn-sm btn-outline-danger" %></td>

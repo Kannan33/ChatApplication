@@ -30,11 +30,10 @@ class ConversationsController < ApplicationController
   end
 
   def unread_messages_reset
-    # @conversation_sender = Conversation.find(params[:id])
-    # @conversation_sender.update(unread_messages_count: 0)
-    con = "alert("+request&.headers['Content-Type']+");"
-    puts con
-    render js: con
+    @conversation_sender = Conversation.find(params[:id])
+    @conversation_sender.update(unread_messages_count: 0)
+
+    head :ok
   end
 
   private
