@@ -1,11 +1,11 @@
 <diV class="container">
-  <div class="col-8">
+  <div class="col-6 offset-3">
     <h2>Edit <%= resource_name.to_s.humanize %></h2>
 
     <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
       <%= render "devise/shared/error_messages", chats: resource %>
 
-      <div class="field mt-2 mb-2">
+      <div class="field mt-1 mb-2">
         <%= f.label :avatar %><br/>
         <% if resource.avatar.attached? %>
           <%= image_tag resource.avatar, size: '100x100', style: 'border-radius: 50%' %>
@@ -13,7 +13,7 @@
           No avatar found.
         <% end %>
         <br />
-        <%= f.file_field :avatar, accept: 'image/png,image/gif,image/jpeg,image/jpg', class: "form-control mt-2 mb-2" %>
+        <%= f.file_field :avatar, accept: 'image/png,image/gif,image/jpeg,image/jpg', class: "form-control mt-1 mb-2" %>
       </div>
 
       <div class="mb-2">
@@ -37,7 +37,7 @@
 
       <div class="mb-2">
         <%= f.label :password, class: "form-label" %> <i>(leave blank if you don't want to change it)</i>
-        <%= f.password_field :password, autocomplete: "new-password" %>
+        <%= f.password_field :password, autocomplete: "new-password", class: "form-control" %>
         <% if @minimum_password_length %>
           <br />
           <em><%= @minimum_password_length %> characters minimum</em>
@@ -50,7 +50,7 @@
       </div>
 
       <div class="mb-2">
-        <%= f.label :current_password %> <i>(we need your current password to confirm your changes)</i><br />
+        <%= f.label :current_password, class: "form-label" %> <i>(we need your current password to confirm your changes)</i><br />
         <%= f.password_field :current_password, autocomplete: "current-password", class: "form-control" %>
       </div>
 
@@ -61,9 +61,8 @@
 
     <h3>Cancel my account</h3>
 
-    <div>Unhappy? <%= button_to "Cancel my account", registration_path(resource_name), data: { confirm: "Are you sure?", turbo_confirm: "Are you sure?" }, method: :delete %></div>
-
-    <%= link_to "Back", :back %>
+     <div>Unhappy? <%= button_to "Cancel my account", registration_path(resource_name), data: { confirm: "Are you sure?", turbo_confirm: "Are you sure?" }, class: "btn btn-outline-danger", method: :delete %></div>
+     <div><%= link_to "Back", :back, class: "btn btn-outline-secondary mt-1" %></div>
 
   </div>
 </diV>

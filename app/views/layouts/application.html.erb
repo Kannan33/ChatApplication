@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>ChatApplication</title>
+    <title>SweetChats</title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
-
+    <%= favicon_link_tag asset_path("chat-icon.png") %>
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <%= javascript_include_tag "application", "data-turbo-track": "reload", defer: true %>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -13,6 +13,17 @@
 
   <body>
     <%= render "layouts/navbar" %>
+    <% flash.each do |key, message| %>
+      <div class="alert <%= flash_class(key) %> alert-dismissible fade show" role="alert">
+        <strong><%=key %>!</strong> <%= message %>.
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close" style="border: none"></button>
+      </div>
+    <% end %>
     <%= yield %>
   </body>
 </html>
+<style>
+  .form-control{
+    border: solid 2px skyblue;
+  }
+</style>

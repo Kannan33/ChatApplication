@@ -4,16 +4,16 @@
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
-      <a class="navbar-brand" href="#">Chat App</a>
+      <a class="navbar-brand" href="#">SweetChats</a>
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-        <% if current_user&.present? %>
+        <% if user_signed_in? %>
           <!-- Home Path -->
           <li class="nav-item">
             <%= link_to "Home", root_path, class: "nav-link" %>
           </li>
           <!--  Profile Path  -->
           <li class="nav-item">
-            <%= link_to "Profile", profile_users_path(current_user), class: "nav-link" %>
+            <%= link_to "Profile", profile_path, class: "nav-link" %>
           </li>
           <!--  Profile Edit Path  -->
           <li class="nav-item">
@@ -23,10 +23,10 @@
       </ul>
       <!--  Search User From List  -->
       <% if current_user&.present? %>
-        <div class="nav-item m-2">
+        <div class="nav-item me-2">
           <%= current_user&.first_name + " " + current_user&.last_name  %>
         </div>
-        <div class="nav-item m-2">
+        <div class="nav-item me-2">
           <%= button_to(
                 "Log Out",
                 destroy_user_session_path,
@@ -47,10 +47,10 @@
 </nav>
 <!-- Search Navbar -->
 <% if user_signed_in? %>
-  <nav class="navbar bg-body-tertiary mt-0">
+  <nav class="navbar bg-body-tertiary mt-0 " style="border-bottom: solid 2px skyblue">
     <div class="container-fluid d-flex justify-content-center">
-      <%= form_with(model: nil, url: profile_user_path(current_user), method: :get,local: false ,data: { turbo: false  }, class: "d-flex w-50") do |f|%>
-        <%= f.text_field :email, class: "form-control me-2", placeholder: "Search", type: "search", required: true, style: "width: 100%;" %>
+      <%= form_with(model: nil, url: profile_user_path(current_user), action_name: "search", :method => :get,local: false, class: "d-flex w-50") do |f|%>
+        <%= f.text_field :email, class: "form-control me-2", placeholder: "User Email", type: "search", required: true, style: "width: 100%;" %>
         <%= f.submit "Search", class: "btn btn-outline-success" %>
       <% end %>
     </div>
