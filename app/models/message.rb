@@ -2,8 +2,8 @@ class Message < ApplicationRecord
 
   # associations for user
   belongs_to :conversation
-  # validations for user
-  validates :content, presence: true, length: { maximum: 255 }
+  # validations
+  validates :content, presence: true, length: { maximum: 360, too_long: "Content is too long" }
 
   # associations for user
   scope :conversation_messages,->(user_id, receiver_id) {
@@ -18,7 +18,6 @@ class Message < ApplicationRecord
     conversation_receiver = Conversation.where(user_id: conversation_sender.receiver, receiver: conversation_sender.user_id).take
     conversation_receiver.update(unread_messages_count: conversation_receiver.unread_messages_count+1, received_messages_count: conversation_receiver.received_messages_count+1)
   }
-
   # # I can remove this callback to make dependent destroy work as bulk destroy
   # after_destroy -> {
   # add send count , receiver count, new message count

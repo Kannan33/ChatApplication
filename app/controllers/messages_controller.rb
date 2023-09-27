@@ -5,7 +5,7 @@ class MessagesController < ApplicationController
     # set chat id with sender and receiver ids
     @message = Message.new(message_params)
     if @message.save
-      redirect_to user_conversation_path(current_user.id, @message.conversation_id), notice: 'message sent'
+      redirect_to user_conversation_path(current_user.id, @message.conversation_id)
     else
       redirect_to user_conversation_path(current_user.id, @message.conversation_id), alert: 'message not sent'
     end

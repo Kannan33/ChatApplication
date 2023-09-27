@@ -4,7 +4,7 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable, :confirmable, :trackable
 
-  has_one_attached :avatar, dependent: :destroy
+  has_one_attached :avatar, service: :amazon
   scope :except_this, ->(user_ids) {
     where.not(id: user_ids)
   }
@@ -13,4 +13,19 @@ class User < ApplicationRecord
   # has_many :reserved_conversations, class_name: "Conversation", foreign_key: :receiver
   has_many :conversations, dependent: :destroy, foreign_key: :user_id
   has_many :received_conversations, class_name: "Conversation", foreign_key: :receiver
+  validates :first_name, :last_name, presence: true, :if => :validate_only_alphabet
+
+  private
+  # only alphabets are allowed
+  def validate_only_alphabet
+    if !self.first_name.match?(/^[A-Za-z]+$/)
+      errors.add(:first_name, "only alphabets are allowed")
+      false
+    elsif !self.last_name.match?(/^[A-Za-z]+$/)
+      errors.add(:last_name, "only alphabets are allowed")
+      false
+    else
+      true
+    end
+  end
 end

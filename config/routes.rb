@@ -6,14 +6,14 @@ Rails.application.routes.draw do
 
   resources :users, only: [:index] do
     # for profile
-    get 'profile', to: 'users#profile', on: :collection, as: :profile
-    get 'profile', to: 'users#profile', on: :member
+    get 'profile', to: 'users#search_profile', on: :member
     # for remove user from chat list
     resources :conversations, only: [:show, :create, :destroy ] do
       post :unread_messages_reset, on: :member, as: :unread_messages_reset
       resources :messages, only: [:create, :destroy]
     end
   end
+  get 'profile', to: 'users#profile'
 
   # Defines the root path route ("/")
   root "users#index"

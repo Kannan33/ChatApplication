@@ -5,7 +5,3 @@ import "./src/jquery"
 import * as bootstrap from "bootstrap"
 
 console.log("Hello Rails!")
-
-$(document).ready(function(){
-    alert("reloaded")
-})

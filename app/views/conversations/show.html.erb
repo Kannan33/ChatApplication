@@ -1,5 +1,6 @@
 <div class="container-fluid rounded-4 mb-5" style="max-height: 80vh;">
   <div class="row pb-2 pt-2 rounded-top-3" style="background-color: skyblue" >
+    <!-- receiver avatar, name, last seen and about -->
     <div class="col-1 d-flex justify-content-center align-items-center p-0" style="border-right: 2px solid; border-color: white">
       <% if @receiver.avatar.attached? %>
         <%= image_tag url_for(@receiver.avatar), style: "height: 50px; width: 50px; border-radius: 50%;background-color: white;" %>
@@ -7,36 +8,41 @@
     </div>
     <div class="col-3 ms-2  d-flex flex-column justify-content-evenly p-0">
       <h5><%= @receiver.first_name + " " + @receiver.last_name %></h5>
-      <small class="text-muted">last seen: <%= @receiver.last_sign_in_at.strftime('%Y-%m-%d %H:%M') %></small>
+      <small class="text-muted">last seen: <%= find_date_and_time @receiver.last_sign_in_at %></small>
     </div>
     <div class="col-5 d-flex flex-column justify-content-center p-0">
       <p style="color: brown"><%= @receiver.about %></p>
     </div>
     <div class="col-2 d-flex justify-content-start align-items-center p-0">
       <%= link_to root_path, class: "nav-link ms-auto" do %>
-        <i class='bi bi-arrow-bar-left'></i>
+        <i class='bi bi-arrow-bar-left' style="color: red; font-size: 30px"></i>
       <% end %>
     </div>
   </div>
-  <div class="row overflow-y-auto" style="height: 60vh; border-radius: 10px;background-color: white">
+  <!-- messages container -->
+  <div class="row overflow-y-auto scrollbar" id="style-scroll" style="height: 60vh; border-radius: 10px;background-color: white">
       <div class="container">
+        <!-- avoid repetition -->
+        <% bool_yesterday = true %>
+        <% bool_today = true %>
         <% @messages&.each do |message| %>
-          <% bool_today, bool_yesterday = true %>
-          <% if message&.created_at.to_date == Date.today and bool_today %>
-            <% bool = false %>
-          <p class="mt-2 mb-2 text-center">Today</p>
+          <!--  today and yesterday indication message -->
+          <% date_time = find_date_and_time message.created_at %>
+          <% if date_time.starts_with?("Today") and bool_today %>
+            <small class="mt-2 mb-2 d-block text-center">Today</small><% bool_today = false %>
+          <% elsif date_time.starts_with?("Yesterday") and bool_yesterday %>
+            <small class="mt-2 mb-2 d-block text-center">Yesterday</small><% bool_yesterday = false %>
           <% end %>
-          <% if message&.created_at.to_date == Date.yesterday and bool_yesterday %>
-            <% bool = false %>
-            <small class="mt-2 mb-2 text-center">Today</small>
-          <% end %>
-          <div class="message-box col-8 mt-2 mb-2 <%= message.conversation.user_id == current_user.id ? 'offset-4 bg-info' : 'bg-light' %> rounded-3">
-            <p class="ms-2 p-4 pb-0 text-wrap"><%= message.content %></p>
-            <span style="font-size: 12px;" class="d-flex text-muted justify-content-end me-2"><%= message.created_at.strftime('%H-%m-%S') %></span>
+
+          <!-- for message content block -->
+          <div class="message-box mb-0 col-8 mt-2 <%= message.conversation.user_id == current_user.id ? 'offset-4 bg-info' : 'bg-light' %> rounded-3">
+            <div class="col-10"><p class="ms-2 px-4 text-wrap"><%= message.content %></p></div>
+            <span style="font-size: 12px;" class="d-block mb-2 mt-0 text-muted text-end me-2"><%= date_time %></span>
           </div>
         <% end %>
       </div>
   </div>
+  <!-- message composer form -->
   <div class="row rounded-2 bg-warning w-50 position-relative">
     <div class="position-absolute top-50 start-50" style="background-color: skyblue;">
       <%= render 'messages/form'%>
@@ -45,9 +51,8 @@
 </div>
 
 <script>
-
+    // for read status update if only unread messages there
   <% if @conversation_sender.unread_messages_count != 0 %>
-    // for read status update
   $(document).ready(function() {
       $.ajax({
           url: "<%= unread_messages_reset_user_conversation_path(current_user.id, @conversation_sender.id) %>",
@@ -58,14 +63,42 @@
           method: 'POST'
       });
   });
-
   <% end %>
+    // for scrollbar style
+    $(document).ready(function(){
+        let scroll = $("#style-scroll");
+        let Height = scroll.height();
+        scroll.scrollTop(Height);
+    });
 </script>
 <style>
+    /* for message container style */
     body{
         background-color: skyblue;
     }
     .message-box{
         box-shadow: rgba(17, 17, 26, 0.1) 0px 1px 0px, rgba(17, 17, 26, 0.1) 0px 8px 24px, rgba(17, 17, 26, 0.1) 0px 16px 48px;
+    }
+
+    /* for scrollbar style */
+    #style-scroll::-webkit-scrollbar-track
+    {
+        -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+        background-color: #F5F5F5;
+    }
+
+    #style-scroll::-webkit-scrollbar
+    {
+        width: 10px;
+        background-color: #F5F5F5;
+    }
+
+    #style-scroll::-webkit-scrollbar-thumb
+    {
+        background-color: #0ae;
+
+        background-image: -webkit-gradient(linear, 0 0, 0 100%,
+        color-stop(.5, rgba(255, 255, 255, .2)),
+        color-stop(.5, transparent), to(transparent));
     }
 </style>
