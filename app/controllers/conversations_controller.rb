@@ -10,20 +10,24 @@ class ConversationsController < ApplicationController
   end
 
   def create
+
+    if Conversation.find_by(user_id: conversation_params[:receiver], receiver: conversation_params[:user_id]).present?
+      redirect_to root_path, warn: "user already added"
+    end
     @conversation_sender = Conversation.new(conversation_params)
     @conversation_receiver = Conversation.new(user_id: conversation_params[:receiver], receiver: conversation_params[:user_id])
     if @conversation_sender.save and @conversation_receiver.save
-      redirect_to user_conversation_path(current_user, @conversation_sender), notice: "conversation created with #{@conversation_sender.user.name}"
+      redirect_to user_conversation_path(current_user, @conversation_sender), notice: "conversation room created"
     else
       redirect_to users_path, status: :unprocessable_entity, alert: 'conversation room not created'
     end
   end
 
   def destroy
-    @conversation_sender = Conversation.includes(:received_user).find(params[:id])
+    @conversation_sender = Conversation.find(params[:id])
     @conversation_receiver = Conversation.where(user_id: @conversation_sender.receiver, receiver: @conversation_sender.user_id).first
     if @conversation_receiver.destroy and @conversation_sender.destroy
-      redirect_to users_path(current_user), notice: "conversations between you and #{@conversation_sender.user.name} deleted"
+      redirect_to users_path(current_user), notice: "conversations between you and deleted"
     else
       redirect_to users_path(current_user), notice: 'something went wrong'
     end
