@@ -11,9 +11,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   # POST /resource
   def create
-    super do |resource|
-      flash[:notice] = "Confirm your email to activate your account within 24 hours"
-    end
+    super
   end
 
   # GET /resource/edit
