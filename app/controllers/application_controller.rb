@@ -1,6 +1,7 @@
 class ApplicationController < ActionController::Base
   before_action :authenticate_user!
 
+  # handle 404 error
   def not_found_method
     respond_to do |format|
       format.html { redirect_to users_path, alert: 'Page not found' }
