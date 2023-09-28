@@ -8,7 +8,7 @@
     </div>
     <div class="col-3 ms-2  d-flex flex-column justify-content-evenly p-0">
       <h5><%= @receiver.first_name + " " + @receiver.last_name %></h5>
-      <small class="text-muted">last seen: <%= find_date_and_time @receiver.last_sign_in_at %></small>
+      <small class="text-muted">last seen: <%= time_ago_in_words(@receiver.last_sign_in_at) %></small>
     </div>
     <div class="col-5 d-flex flex-column justify-content-center p-0">
       <p style="color: brown"><%= @receiver.about %></p>

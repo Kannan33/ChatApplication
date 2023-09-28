@@ -1,7 +1,7 @@
 databases:
   - name: chatApp
-    databaseName: chat_6k1y
-    user: chat_6k1y_user
+    databaseName: chatapp_tznq
+    user: chatapp_tznq_user
 
 services:
   - type: web

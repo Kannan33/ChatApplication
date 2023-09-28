@@ -1,0 +1,16 @@
+<div class="mt-2 row">
+  <div class="col-6">
+      <% if @user_profile&.avatar.present? %>
+        <%= image_tag @user_profile.avatar, style: 'width: 200px; height: 200px;' %>
+      <% end %>
+  </div>
+  <div class="col-6">
+    <span style="font-size: large; font-weight: bold;"><%= @user_profile.first_name + " " + @user_profile.last_name %></span><br>
+    <span style="font-weight: bold;"><%= @user_profile.email %></span>
+    <hr class="my-1">
+    <div>
+      <h6 class="mt-2">About</h6>
+      <p><%= @user_profile&.about %></p>
+    </div>
+  </div>
+</div>

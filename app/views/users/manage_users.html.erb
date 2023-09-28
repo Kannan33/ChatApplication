@@ -1,0 +1,75 @@
+<div class="container mt-2">
+  <h4>Manage user Conversations</h4>
+  <% if @current_conversations.present? %>
+    <small class="my-1">* Note that if you remove a user, you will lost your conversation history</small>
+    <table class="table table-info table-borderless">
+      <tbody>
+      <% @current_conversations.each do |conversation| %>
+        <!-- set conversation id to delete -->
+        <tr id="conversation_<%= conversation.id %>">
+          <td><%= conversation.received_user.first_name %> <%= conversation.received_user.last_name %></td>
+          <td>
+            <!-- set id to view about user on Button trigger modal -->
+            <button type="button" id="profile_<%= conversation.receiver %>" class="show-profile btn btn-sm btn-info" data-bs-toggle="modal" data-bs-target="#exampleModal">Profile</button>
+          </td>
+          <td>
+            <button id="delete_conversation" type="reset" class="btn btn-sm btn-danger">Delete Conversation</button>
+          </td>
+        </tr>
+      <% end %>
+      </tbody>
+    </table>
+    <% else %>
+    <p>No User Conversations</p>
+    <% end %>
+</div>
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+
+  $(document).ready(function() {
+      // get conversation id and make ajax call to delete conversation
+      $(document).on("click", "#delete_conversation", function() {
+          let id = $(this).closest('tr').attr('id').split('_')[1]
+          let token = "<%= form_authenticity_token %>"
+          $.ajax({
+              type: "DELETE",
+              url: `conversations/${id}`,
+              dataType: "script",
+              cache: false,
+              method: "DELETE",
+              headers: {
+                  "X-CSRF-Token": token
+              }
+          });
+      });
+
+      // get profile via Bootstrap modal in conversation mage page
+      $(document).on("click", '.show-profile', function() {
+          let id = $(this).attr('id').split('_')[1]
+          let token = "<%= form_authenticity_token %>"
+          $.ajax({
+              type: "GET",
+              url: `profile/${id}`,
+              dataType: "script",
+              method: "GET",
+              headers: {
+                  "X-CSRF-Token": token
+              }
+          });
+      });
+  });
+
+</script>

@@ -3,5 +3,4 @@ import "@hotwired/turbo-rails"
 import "./controllers"
 import "./src/jquery"
 import * as bootstrap from "bootstrap"
-
 console.log("Hello Rails!")
