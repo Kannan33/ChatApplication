@@ -1,8 +1,8 @@
 Rails.application.routes.draw do
+  # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
   devise_for :users, controllers: {
     registrations: 'users/registrations'
   }
-  # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
   resources :users, only: [:index] do
     # for profile
     get 'profile', to: 'users#search_profile', on: :member
@@ -18,6 +18,6 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   root "users#index"
-
+  # redirect to root page if undefined path
   match '*unmatched', to: 'application#not_found_method', via: :all
 end
