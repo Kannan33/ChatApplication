@@ -1,26 +1,23 @@
-<div class="container-fluid rounded-4 mb-5" style="max-height: 80vh;">
+<div class="container-fluid rounded-4 mb-5" style="max-height: 75vh;">
   <div class="row pb-2 pt-2 rounded-top-3" style="background-color: skyblue" >
     <!-- receiver avatar, name, last seen and about -->
-    <div class="col-1 d-flex justify-content-center align-items-center p-0" style="border-right: 2px solid; border-color: white">
+    <div class="col-auto d-flex justify-content-start align me-4-items-center ms-4 p-0">
       <% if @receiver.avatar.attached? %>
         <%= image_tag url_for(@receiver.avatar), style: "height: 50px; width: 50px; border-radius: 50%;background-color: white;" %>
       <% end %>
     </div>
-    <div class="col-3 ms-2  d-flex flex-column justify-content-evenly p-0">
+    <div class="col-5 ms-2  d-flex flex-column justify-content-evenly p-0">
       <h5><%= @receiver.first_name + " " + @receiver.last_name %></h5>
       <small class="text-muted">last seen: <%= time_ago_in_words(@receiver.last_sign_in_at) %></small>
     </div>
-    <div class="col-5 d-flex flex-column justify-content-center p-0">
-      <p style="color: brown"><%= @receiver.about %></p>
-    </div>
-    <div class="col-2 d-flex justify-content-start align-items-center p-0">
+    <div class="col-auto ms-auto me-5 d-flex justify-content-start align-items-center p-0">
       <%= link_to root_path, class: "nav-link ms-auto" do %>
         <i class='bi bi-arrow-bar-left' style="color: red; font-size: 30px"></i>
       <% end %>
     </div>
   </div>
   <!-- messages container -->
-  <div class="row overflow-y-auto scrollbar" id="style-scroll" style="height: 60vh; border-radius: 10px;background-color: white">
+  <div class="row overflow-y-auto scrollbar" id="style-scroll" style="max-height: 60vh; border-radius: 10px;background-color: white">
       <div class="container">
         <!-- avoid repetition -->
         <% bool_yesterday = true %>
@@ -49,8 +46,8 @@
       </div>
   </div>
   <!-- message composer form -->
-  <div class="row rounded-2 bg-warning w-50 position-relative">
-    <div class="position-absolute top-50 start-50" style="background-color: skyblue;">
+  <div class="row rounded-2">
+    <div class="" style="background-color: skyblue;">
       <%= render 'messages/form'%>
     </div>
   </div>

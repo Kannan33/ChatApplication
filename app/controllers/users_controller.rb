@@ -13,7 +13,7 @@ class UsersController < ApplicationController
   # show user profile
   def search_profile
     # if user search another user or view his profile
-    @user_profile = User.find_by(email: params[:email])
+    @user_profile = User.find_by(email: params[:email]&.strip)
     if  @user_profile.present? and @user_profile.eql? current_user
       # if user request to his own profile
       @search_user_conversations = Conversation.includes(:received_user).where(user_id: @user_profile.id)

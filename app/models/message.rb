@@ -3,7 +3,7 @@ class Message < ApplicationRecord
   # associations for user
   belongs_to :conversation
   # validations
-  validates :content, presence: true, length: { maximum: 360, too_long: "Content is too long" }
+  validates :content, presence: true, length: { maximum: 1024, too_long: "Content is too long" }
 
   # associations for user
   scope :conversation_messages,->(user_id, receiver_id) {

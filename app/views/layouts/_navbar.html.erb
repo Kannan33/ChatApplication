@@ -53,7 +53,7 @@
 <% if user_signed_in? %>
   <nav class="navbar bg-body-tertiary mt-0 " style="border-bottom: solid 2px skyblue">
     <div class="container-fluid d-flex justify-content-center">
-      <%= form_with(model: nil, url: search_profile_path(current_user), action_name: "search", :method => :get,local: false, class: "d-flex w-50") do |f|%>
+      <%= form_with(model: nil, url: search_profile_path(current_user), action_name: "search", :method => :get,local: false, class: "d-flex w-75") do |f|%>
         <%= f.text_field :email, class: "form-control me-2", placeholder: "User Email", type: "search", required: true, style: "width: 100%;" %>
         <%= f.submit "Search", class: "btn btn-outline-success" %>
       <% end %>
