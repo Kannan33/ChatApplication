@@ -1,5 +1,5 @@
 <diV class="container">
-  <div class="col-6 offset-3">
+  <div class="col-6 col-sm-8 offset-3 offset-sm-2">
     <h2>Edit <%= resource_name.to_s.humanize %></h2>
 
     <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
@@ -62,7 +62,7 @@
     <h3>Cancel my account</h3>
 
      <div>Unhappy? <%= button_to "Cancel my account", registration_path(resource_name), data: { confirm: "Are you sure?", turbo_confirm: "Are you sure?" }, class: "btn btn-outline-danger", method: :delete %></div>
-     <div><%= link_to "Back", :back, class: "btn btn-outline-secondary mt-1" %></div>
+     <div><%= link_to "Back", root_path, class: "btn btn-outline-secondary mt-1" %></div>
 
   </div>
 </diV>

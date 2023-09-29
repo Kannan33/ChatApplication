@@ -90,6 +90,7 @@
     <orderEntry type="library" scope="PROVIDED" name="psych (v5.1.0, ruby-3.2.2-p53) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="public_suffix (v5.0.3, ruby-3.2.2-p53) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="puma (v5.6.7, ruby-3.2.2-p53) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="pundit (v2.3.1, ruby-3.2.2-p53) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="racc (v1.7.1, ruby-3.2.2-p53) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="rack (v2.2.8, ruby-3.2.2-p53) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="rack-test (v2.1.0, ruby-3.2.2-p53) [gem]" level="application" />
@@ -160,6 +161,8 @@
         <option value="migration" />
         <option value="model" />
         <option value="mongoid:devise" />
+        <option value="pundit:install" />
+        <option value="pundit:policy" />
         <option value="resource" />
         <option value="responders:install" />
         <option value="responders_controller" />
@@ -174,6 +177,7 @@
         <option value="rspec:mailbox" />
         <option value="rspec:mailer" />
         <option value="rspec:model" />
+        <option value="rspec:policy" />
         <option value="rspec:request" />
         <option value="rspec:scaffold" />
         <option value="rspec:system" />
@@ -194,6 +198,7 @@
         <option value="test_unit:mailer" />
         <option value="test_unit:model" />
         <option value="test_unit:plugin" />
+        <option value="test_unit:policy" />
         <option value="test_unit:scaffold" />
         <option value="test_unit:system" />
       </list>
@@ -222,6 +227,8 @@
         <option value="migration" />
         <option value="model" />
         <option value="mongoid:devise" />
+        <option value="pundit:install" />
+        <option value="pundit:policy" />
         <option value="resource" />
         <option value="responders:install" />
         <option value="responders_controller" />
@@ -236,6 +243,7 @@
         <option value="rspec:mailbox" />
         <option value="rspec:mailer" />
         <option value="rspec:model" />
+        <option value="rspec:policy" />
         <option value="rspec:request" />
         <option value="rspec:scaffold" />
         <option value="rspec:system" />
@@ -256,6 +264,7 @@
         <option value="test_unit:mailer" />
         <option value="test_unit:model" />
         <option value="test_unit:plugin" />
+        <option value="test_unit:policy" />
         <option value="test_unit:scaffold" />
         <option value="test_unit:system" />
       </list>

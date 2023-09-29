@@ -14,14 +14,14 @@
           </li>
           <!--  Profile Path  -->
           <li class="nav-item">
-            <%= link_to "Profile", profile_path, class: "nav-link" %>
+            <%= link_to "Profile", profile_path(current_user.id), class: "nav-link" %>
           </li>
           <!--  Profile Edit Path  -->
           <li class="nav-item">
             <%= link_to "Edit Profile", edit_user_registration_path, class: "nav-link" %>
           </li>
           <li>
-            <%= link_to "Manage Conversations", manage_users_user_path(current_user), class: "nav-link" %>
+            <%= link_to "Manage Conversations", manage_users_path, class: "nav-link" %>
           </li>
         <% end %>
       </ul>
@@ -53,7 +53,7 @@
 <% if user_signed_in? %>
   <nav class="navbar bg-body-tertiary mt-0 " style="border-bottom: solid 2px skyblue">
     <div class="container-fluid d-flex justify-content-center">
-      <%= form_with(model: nil, url: profile_user_path(current_user), action_name: "search", :method => :get,local: false, class: "d-flex w-50") do |f|%>
+      <%= form_with(model: nil, url: search_profile_path(current_user), action_name: "search", :method => :get,local: false, class: "d-flex w-50") do |f|%>
         <%= f.text_field :email, class: "form-control me-2", placeholder: "User Email", type: "search", required: true, style: "width: 100%;" %>
         <%= f.submit "Search", class: "btn btn-outline-success" %>
       <% end %>

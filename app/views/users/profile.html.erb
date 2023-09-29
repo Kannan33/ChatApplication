@@ -5,12 +5,15 @@
           <%= image_tag @user_profile.avatar, style: 'width: 200px; height: 200px;' %>
         <% end %>
     </div>
-    <div class="col-9">
+    <div class="col-6 ms-2 border-start">
       <span style="font-size: large; font-weight: bold;"><%= @user_profile.first_name + " " + @user_profile.last_name %></span><br>
       <span style="font-weight: bold;"><%= @user_profile.email %></span>
       <hr class="my-1">
         <h6 class="mt-2">About</h6>
         <p><%= @user_profile&.about %></p>
+    </div>
+    <div class="col-1 border-start">
+      <%= link_to "Back", root_path, class: "btn btn-secondary btn-sm me-2" %>
     </div>
   </div>
 

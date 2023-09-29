@@ -33,10 +33,16 @@
           <% elsif date_time.starts_with?("Yesterday") and bool_yesterday %>
             <small class="mt-2 mb-2 d-block text-center">Yesterday</small><% bool_yesterday = false %>
           <% end %>
-
-          <!-- for message content block -->
-          <div class="message-box mb-0 col-8 mt-2 <%= message.conversation.user_id == current_user.id ? 'offset-4 bg-info' : 'bg-light' %> rounded-3">
-            <div class="col-10"><p class="ms-2 px-4 text-wrap"><%= message.content %></p></div>
+          <!--for message content block-->
+          <div class="message-box mb-0 col-8 mt-2 <%= message.conversation.user_id == current_user.id ? 'bg-info offset-4' : 'bg-light' %> rounded-3">
+            <div class="d-flex flex-grow-1">
+              <p class="ms-2 ps-2 pb-0 text-wrap col-8">
+                <%= message.content %>
+              </p>
+              <% if message.conversation.user_id == current_user.id %>
+                <i id='<%= message.id %>' class="exit-icon bi bi-x-square-fill ms-auto me-3 text-danger" style="cursor: pointer;font-size: 24px"></i>
+              <% end %>
+            </div>
             <span style="font-size: 12px;" class="d-block mb-2 mt-0 text-muted text-end me-2"><%= date_time %></span>
           </div>
         <% end %>
@@ -49,13 +55,12 @@
     </div>
   </div>
 </div>
-
 <script>
     // for read status update if only unread messages there
   <% if @conversation_sender.unread_messages_count != 0 %>
   $(document).ready(function() {
       $.ajax({
-          url: "<%= unread_messages_reset_user_conversation_path(current_user.id, @conversation_sender.id) %>",
+          url: "<%= unread_messages_reset_conversation_path(@conversation_sender.id) %>",
           dataType: 'script', // Set the response format to js
           headers: {
               'X-CSRF-Token': "<%= form_authenticity_token %>"
@@ -64,12 +69,28 @@
       });
   });
   <% end %>
+    $(document).on("click", ".exit-icon", function(){
+        bool = confirm("Are you sure?")
+        if (bool) {
+            $.ajax({
+                url: `${<%= @conversation_sender.id %>}/messages/${$(this).attr('id')}`,
+                dataType: 'script',
+                method: 'DELETE',
+                headers: {
+                    'X-CSRF-Token': "<%= form_authenticity_token %>"
+                }
+            });
+        }
+    });
     // for scrollbar style
     $(document).ready(function(){
+        scrollDown();
+    });
+    function scrollDown(){
         let scroll = $("#style-scroll");
         let Height = scroll.height();
         scroll.scrollTop(Height);
-    });
+    }
 </script>
 <style>
     /* for message container style */

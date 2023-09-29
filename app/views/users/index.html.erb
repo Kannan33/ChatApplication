@@ -1,6 +1,6 @@
 <% if current_user.confirmed? %>
   <div class="p-1 mt-0">
-    <p class="text-center bg-warning"> <sup>*</sup>Confirm your email to activate your account within 24 hours</p>
+    <p class="text-center bg-warning"> <sup>*</sup>Confirm your gmail to activate your account within 24 hours, if you didn't receive, <%=link_to "resend", new_user_confirmation_url %></p>
   </div>
 <% end %>
 <div class="table-responsive ms-2 me-2 d-flex justify-content-center m-2">
@@ -23,7 +23,7 @@
             <td><%= conversation.received_user.first_name + " " + conversation.received_user.last_name %></td>
             <td><%= conversation.received_user.email %></td>
             <td class="d-flex justify-content-center">
-              <%= link_to "Chat", user_conversation_path(current_user.id, conversation.id), class: "btn btn-sm btn-outline-primary" %>
+              <%= link_to "Chat", conversation_path(conversation.id), class: "btn btn-sm btn-outline-primary" %>
               <% if conversation.unread_messages_count != 0 %>
                 <span class="badge bg-info ms-1" style="font-size: 14px;"><%= conversation.unread_messages_count %></span>
               <% end %>
