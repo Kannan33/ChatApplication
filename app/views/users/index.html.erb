@@ -1,4 +1,4 @@
-<% if current_user.confirmed? %>
+<% if current_user.confirmed? == false %>
   <div class="p-1 mt-0">
     <p class="text-center bg-warning"> <sup>*</sup>Confirm your gmail to activate your account within 24 hours, if you didn't receive, <%=link_to "resend", new_user_confirmation_url %></p>
   </div>
